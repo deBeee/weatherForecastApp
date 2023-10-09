@@ -8,11 +8,13 @@
 }
 
 .App-header {
-  background-color: #0a62aa;
+  background-color: #035080;
   color: white;
   padding: 20px;
   display: flex;
   align-items: center;
+  margin-bottom: 20px;
+  height: 40px;
 }
 .App-logo {
   background-color: transparent;
@@ -76,4 +78,15 @@
 
 .Detail-table td {
   background-color: #fff;
+}
+
+.forecast-item{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+.App-logo-wschod{
+  background-color: transparent;
+  height: 50px;
 }

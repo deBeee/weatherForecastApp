@@ -3,16 +3,18 @@ import React, { useEffect, useState } from 'react';
 import { Button, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { BrowserRouter, Routes, Route, Link, useParams } from 'react-router-dom';
 
+
 function App() {
     return (
         <BrowserRouter>
             <div className="App">
                 <header className="App-header">
                     <img src="/icon_v2.png" alt="Weather_icon" className="App-logo" />
-                    <Typography variant="h5">Weather App</Typography>
+                    <Typography variant="h5">Weather Forecast App</Typography>
                 </header>
                 <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route path="/dzis" element={<DetailedForecast day="dzis" />} />
                     <Route path="/:day" element={<DetailedForecast />} />
                 </Routes>
                 <footer className="App-footer">
@@ -47,7 +49,7 @@ function Home() {
 
     return (
         <div className="content">
-            <Typography variant="h4">Dzisiaj w Krakowie</Typography>
+            <Typography variant="h4">Pogoda w Krakowie dzisiaj</Typography>
             {pogodaKrakow && (
                 <div className="today-forecast">
                     <div className="forecast-item">
@@ -72,19 +74,21 @@ function Home() {
                     </div>
                     <div className="forecast-item">
                         <Typography>
-                            Szansa opadów: <b>{pogodaKrakow.daily.precipitation_probability_max[0]}%</b>
+                            Prawdopodobieństwo wystąpienia opadów: <b>{pogodaKrakow.daily.precipitation_probability_max[0]}%</b>
                         </Typography>
                     </div>
                 </div>
             )}
             <div>
-                <Button variant="contained" component={Link} to="/dzis">
-                    Szczegółowa prognoza
+                <Button variant="contained" component={Link} 
+                to={pogodaKrakow ? `/${pogodaKrakow.daily.time[0]}` : '/dzis'}
+                >
+                    Zobacz szczegóły
                 </Button>
             </div>
             <hr width="70%" align="center"></hr>
 
-            <Typography variant="h4">Prognoza na kolejne dni</Typography>
+            <Typography variant="h4"> Prognoza na najbliższy tydzień</Typography>
 
             {pogodaKrakow && (
                 <div className="multi-day-forecast">
@@ -97,7 +101,7 @@ function Home() {
                                     <TableCell>Zachód słońca</TableCell>
                                     <TableCell>Temp. max (°C)</TableCell>
                                     <TableCell>Temp. min (°C)</TableCell>
-                                    <TableCell>Szansa opadów (%)</TableCell>
+                                    <TableCell>Prawd. opadów (%)</TableCell>
                                     <TableCell>Szczegóły</TableCell>
                                 </TableRow>
                             </TableHead>
@@ -117,7 +121,7 @@ function Home() {
                                                 component={Link}
                                                 to={`/${pogodaKrakow.daily.time[index]}`}
                                             >
-                                                Szczegółowa prognoza
+                                                Zobacz szczegóły
                                             </Button>
                                         </TableCell>
                                     </TableRow>
@@ -167,7 +171,7 @@ function DetailedForecast() {
                               <TableCell>Godzina</TableCell>
                               <TableCell>Temperatura</TableCell>
                               <TableCell>Opady</TableCell>
-                              <TableCell>Szansa opadów</TableCell>
+                              <TableCell>Prawd. opadów</TableCell>
                               <TableCell>Zachmurzenie</TableCell>
                               <TableCell>Ciśnienie</TableCell>
                           </TableRow>
